@@ -17,7 +17,7 @@ def connect() -> psycopg2.extensions.connection:
             database=os.getenv('DBNAME'),
             user=os.getenv('USER'),
             password=os.getenv('PASSWORD'),
-            port=int(os.getenv('PORT'))
+            port=int(os.getenv('DBPORT'))
         )
         return cnn
     except OperationalError as oe:
