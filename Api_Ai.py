@@ -27,6 +27,10 @@ def connect() -> psycopg2.extensions.connection:
 def disconnect(cnn):
     if cnn:
         cnn.close()
+        
+@app.route('/', methods=['GET', 'HEAD'])
+def keep_alive():
+    return '', 200
 
 @app.route('/getResponse/', methods=['POST'])
 def getResponse():
