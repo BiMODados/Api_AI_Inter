@@ -53,8 +53,8 @@ def getResponse():
                                              'ano inicio_ativ', 'mes inicio_ativ', 'dia inicio_ativ'])
 
         try:
-            pipeline_path = os.path.abspath('pipeline.pkl')
-            with open(rf'{pipeline_path}','rb') as f:
+            
+            with open(rf'pipeline.pkl','rb') as f:
                 pipeline = pickle.load(f)
         except Exception as e:
             return jsonify({'error': 'Failed to load prediction model', 'details': str(e)}), 500
