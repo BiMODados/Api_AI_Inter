@@ -17,7 +17,7 @@ def connect() -> psycopg2.extensions.connection:
             database=os.getenv('DBNAME'),
             user=os.getenv('USER'),
             password=os.getenv('PASSWORD'),
-            port=int(os.getenv('PORT'))
+            port=int(os.getenv('DBPORT'))
         )
         return cnn
     except OperationalError as oe:
@@ -27,6 +27,10 @@ def connect() -> psycopg2.extensions.connection:
 def disconnect(cnn):
     if cnn:
         cnn.close()
+        
+@app.route('/', methods=['GET', 'HEAD'])
+def keep_alive():
+    return '', 200
 
 @app.route('/getResponse/', methods=['POST'])
 def getResponse():
@@ -53,8 +57,8 @@ def getResponse():
                                              'ano inicio_ativ', 'mes inicio_ativ', 'dia inicio_ativ'])
 
         try:
-            pipeline_path = os.path.abspath('pipeline.pkl')
-            with open(rf'{pipeline_path}','rb') as f:
+            
+            with open(rf'pipeline.pkl','rb') as f:
                 pipeline = pickle.load(f)
         except Exception as e:
             return jsonify({'error': 'Failed to load prediction model', 'details': str(e)}), 500
