@@ -4,3 +4,4 @@ Flask
 pandas
 psycopg2-binary
 python-dotenv
+flask-cors
